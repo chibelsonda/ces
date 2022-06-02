@@ -1,6 +1,8 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\HomeController;
+use App\Http\Controllers\SubjectController;
 
 /*
 |--------------------------------------------------------------------------
@@ -19,4 +21,16 @@ Route::get('/', function () {
 
 Auth::routes();
 
-Route::get('/home', [App\Http\Controllers\HomeController::class, 'index'])->name('home');
+Route::get('/home', [HomeController::class, 'index'])->name('home');
+
+Route::group(['middleware' => ['auth'], "prefix" => "subjects"], function() {
+    Route::get('/', [SubjectController::class, 'index'])->name('subjects.index');
+    Route::get('/create', [SubjectController::class, 'create'])->name('subjects.create');
+    Route::post('/store', [SubjectController::class, 'store'])->name('subjects.store');
+    Route::delete('/delete/{subject}', [SubjectController::class, 'destroy'])->name('subjects.destroy');
+    Route::get('/show/{subject}', [SubjectController::class, 'show'])->name('subjects.show');
+    Route::get('/edit/{subject}', [SubjectController::class, 'edit'])->name('subjects.edit');
+    Route::put('/update/{subject}', [SubjectController::class, 'update'])->name('subjects.update');
+});
+
+// Route::resource('subjects', SubjectController::class);

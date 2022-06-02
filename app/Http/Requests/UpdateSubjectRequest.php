@@ -3,6 +3,7 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
 class UpdateSubjectRequest extends FormRequest
 {
@@ -13,7 +14,7 @@ class UpdateSubjectRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,20 @@ class UpdateSubjectRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'code' => [
+                'required', 
+                Rule::unique("subjects")->where(
+                    function ($query) {
+                        return $query->where([
+                            ["code", "=", $this->code],
+                            ["description", "=", $this->description],
+                            ["id", "<>", $this->id]
+                        ]);
+                    }
+                )
+            ],
+            'description' => 'required',
+            'units' => 'required|numeric',
         ];
     }
 }
