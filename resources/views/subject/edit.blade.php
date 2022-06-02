@@ -3,11 +3,11 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+            <div class="float-start">
                 <h2>Edit Subject</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-primary" href="{{ route('subjects.index') }}"> Back</a>
+            <div class="float-end">
+                <a class="btn btn-sm btn-primary" href="{{ route('subjects.index') }}"> Back</a>
             </div>
         </div>
     </div>

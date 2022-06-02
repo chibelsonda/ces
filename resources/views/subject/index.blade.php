@@ -3,11 +3,11 @@
 @section('content')
     <div class="row">
         <div class="col-lg-12 margin-tb">
-            <div class="pull-left">
+            <div class="float-start">
                 <h2>Subjects</h2>
             </div>
-            <div class="pull-right">
-                <a class="btn btn-success" href="{{ route('subjects.create') }}"> Create New Product</a>
+            <div class="float-end">
+                <a class="btn btn-sm btn-success" href="{{ route('subjects.create') }}"> Create New Product</a>
             </div>
         </div>
     </div>
@@ -35,13 +35,13 @@
             <td>
                 <form action="{{ route('subjects.destroy', $subject->id) }}" method="POST">
    
-                    <a class="btn btn-info" href="{{ route('subjects.show', $subject) }}">Show</a>
+                    <a class="btn btn-sm btn-info" href="{{ route('subjects.show', $subject) }}">Show</a>
     
-                    <a class="btn btn-primary" href="{{ route('subjects.edit', $subject) }}">Edit</a>
+                    <a class="btn btn-sm btn-primary" href="{{ route('subjects.edit', $subject) }}">Edit</a>
    
                     @csrf
                     @method('DELETE')
-                    <button type="submit" class="btn btn-danger">Delete</button>
+                    <button type="submit" class="btn btn-sm btn-danger">Delete</button>
                 </form>
             </td>
         </tr>
