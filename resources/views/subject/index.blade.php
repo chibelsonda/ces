@@ -4,7 +4,7 @@
     <div class="row">
         <div class="col-lg-12 margin-tb">
             <div class="float-start">
-                <h2>Subjects</h2>
+                <h4>Subjects</h4>
             </div>
             <div class="float-end">
                 <a class="btn btn-sm btn-success" href="{{ route('subjects.create') }}"> Create New Product</a>
