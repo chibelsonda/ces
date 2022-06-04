@@ -1,13 +1,17 @@
-@extends('layouts.main')
+@extends('layouts.admin')
 
 @section('content')
-    <div class="row mt-4">
-        <div class="col-lg-12 margin-tb">
-            <div class="float-start">
-                <h4> Show Subject</h4>
-            </div>
-            <div class="float-end">
-                <a class="btn btn-sm btn-primary" href="{{ route('subjects.index') }}"> Back</a>
+    <div class="row">
+        <div class="col-12">
+            <h1 class="mt-4">Show Subject</h1>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item active">Subjects</li>
+            </ol>
+        </div>
+        
+        <div class="col-12">
+            <div class="float-end mb-3">
+                <a class="btn btn-sm btn-success" href="{{ route('subjects.index') }}"> Back</a>
             </div>
         </div>
     </div>

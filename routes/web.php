@@ -16,12 +16,12 @@ use App\Http\Controllers\SubjectController;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('dashboard');
 });
 
 Auth::routes();
 
-Route::get('/home', [HomeController::class, 'index'])->name('home');
+Route::get('/home', [SubjectController::class, 'index'])->name('home');
 
 Route::group(['middleware' => ['auth'], "prefix" => "subjects"], function() {
     Route::get('/', [SubjectController::class, 'index'])->name('subjects.index');
