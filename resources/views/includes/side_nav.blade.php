@@ -2,9 +2,14 @@
   <div class="sb-sidenav-menu">
       <div class="nav">
           <div class="sb-sidenav-menu-heading">Core</div>
-          <a class="nav-link" href="index.html">
+          <a class="nav-link" href="/">
               <div class="sb-nav-link-icon"><i class="fas fa-tachometer-alt"></i></div>
               Dashboard
+          </a>
+
+          <a class="nav-link" href="/subjects">
+             <div class="sb-nav-link-icon"><i class="fas fa-book-open"></i></div>
+              Subjects
           </a>
           <div class="sb-sidenav-menu-heading">Interface</div>
           <a class="nav-link collapsed" href="#" data-bs-toggle="collapse" data-bs-target="#collapseLayouts" aria-expanded="false" aria-controls="collapseLayouts">
