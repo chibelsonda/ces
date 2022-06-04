@@ -1,7 +1,7 @@
 @extends('layouts.main')
  
 @section('content')
-    <div class="row">
+    <div class="row mt-4">
         <div class="col-lg-12 margin-tb">
             <div class="float-start">
                 <h4>Subjects</h4>
