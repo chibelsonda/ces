@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HomeController;
+use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SubjectController;
 
 /*
@@ -34,3 +34,5 @@ Route::group(['middleware' => ['auth'], "prefix" => "subjects"], function() {
 });
 
 // Route::resource('subjects', SubjectController::class);
+
+Route::resource('courses', CourseController::class)->middleware('auth');
