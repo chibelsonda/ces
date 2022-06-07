@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateRoomRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateRoomRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,17 @@ class UpdateRoomRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => [
+                'required', 
+                Rule::unique("rooms")->where(
+                    function ($query) {
+                        return $query->where([
+                            ["name", "=", $this->name],
+                            ["id", "<>", $this->id]
+                        ]);
+                    }
+                )
+            ],
         ];
     }
 }

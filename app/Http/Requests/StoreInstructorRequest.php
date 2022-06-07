@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class StoreInstructorRequest extends FormRequest
@@ -13,7 +14,7 @@ class StoreInstructorRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,16 @@ class StoreInstructorRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => [
+                'required', 
+                Rule::unique("instructors")->where(
+                    function ($query) {
+                        return $query->where([
+                            ["name", "=", $this->name]
+                        ]);
+                    }
+                )
+            ],
         ];
     }
 }
