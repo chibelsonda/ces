@@ -2,6 +2,7 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Validation\Rule;
 use Illuminate\Foundation\Http\FormRequest;
 
 class UpdateSubjectOfferingRequest extends FormRequest
@@ -13,7 +14,7 @@ class UpdateSubjectOfferingRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +25,23 @@ class UpdateSubjectOfferingRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'course_id' => 'required',
+            'subject_id' => 'required',
+            'school_year' => 'required|numeric',
+            'section' =>  [
+                'required', 
+                    Rule::unique("subject_offerings")->where(
+                        function ($query) {
+                            return $query->where([
+                                ["course_id", "=", $this->course_id],
+                                ["subject_id", "=", $this->subject_id],
+                                ["school_year", "=", $this->school_year],
+                                ["section", "=", $this->section],
+                                ["id", "<>", $this->id]
+                            ]);
+                        }
+                    )
+                ],
         ];
     }
 }

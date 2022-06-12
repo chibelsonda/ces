@@ -8,4 +8,13 @@ use Illuminate\Database\Eloquent\Model;
 class SubjectOffering extends Model
 {
     use HasFactory;
+
+    protected $fillable = [
+        'course_id', 
+        'subject_id',
+        'school_year',
+        'section'
+    ];
+
+    public $timestamps = true;
 }

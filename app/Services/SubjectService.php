@@ -15,6 +15,11 @@ class SubjectService{
         return Subject::latest()->paginate(5);
     }
 
+    public function getSubjects()
+    {
+        return Subject::all();
+    }
+
     public function store($subject) 
     {
         return Subject::insert($subject);

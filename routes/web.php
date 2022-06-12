@@ -5,6 +5,8 @@ use App\Http\Controllers\CourseController;
 use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\RoomController;
+use App\Http\Controllers\SubjectOfferingController;
+
 
 /*
 |--------------------------------------------------------------------------
@@ -40,3 +42,4 @@ Route::group(['middleware' => ['auth'], "prefix" => "subjects"], function() {
 Route::resource('courses', CourseController::class)->middleware('auth');
 Route::resource('instructors', InstructorController::class)->middleware('auth');
 Route::resource('rooms', RoomController::class)->middleware('auth');
+Route::resource('subject-offerings', SubjectOfferingController::class)->middleware('auth');

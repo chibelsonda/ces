@@ -15,6 +15,11 @@ class CourseService{
         return Course::latest()->paginate(5);
     }
 
+    public function getCourses()
+    {
+        return Course::all();
+    }
+
     public function store($course) 
     {
         return Course::insert($course);
