@@ -28,6 +28,7 @@ class UpdateSubjectOfferingRequest extends FormRequest
             'course_id' => 'required',
             'subject_id' => 'required',
             'school_year' => 'required|numeric',
+            'year_level' => 'required|numeric',
             'section' =>  [
                 'required', 
                     Rule::unique("subject_offerings")->where(
@@ -36,6 +37,7 @@ class UpdateSubjectOfferingRequest extends FormRequest
                                 ["course_id", "=", $this->course_id],
                                 ["subject_id", "=", $this->subject_id],
                                 ["school_year", "=", $this->school_year],
+                                ["year_level", "=", $this->year_level],
                                 ["section", "=", $this->section],
                                 ["id", "<>", $this->id]
                             ]);
