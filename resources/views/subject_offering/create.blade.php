@@ -36,7 +36,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <label>Year:</label>
                         <select class="form-select" name="school_year" aria-label="Select Year">
-                            <option selected disabled>Select Year</option>
+                            <option selected>Select Year</option>
                             @foreach($years as $year)
                                 <option value="{{ $year }}" @selected(old('school_year') == $year)>
                                     {{ $year }}
@@ -48,7 +48,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                         <label>Course:</label>
                         <select class="form-select" name="course_id" aria-label="Select Course">
-                            <option selected disabled>Select Course</option>
+                            <option selected>Select Course</option>
                             @foreach($courses as $course)
                                 <option value="{{ $course->id }}" @selected(old('course_id') == $course->id)>
                                     {{ $course->name }}
@@ -60,7 +60,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                         <label>Subject:</label>
                         <select class="form-select" name="subject_id" aria-label="Select Subject">
-                            <option selected disabled>Select Subject</option>
+                            <option selected>Select Subject</option>
                             @foreach($subjects as $subject)
                                 <option value="{{ $subject->id }}" @selected(old('subject_id') == $subject->id)>
                                     {{ $subject->code . ' - ' . $subject->description }}
@@ -72,7 +72,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                         <label>Section:</label>
                         <select class="form-select" name="section" aria-label="Select Subject">
-                            <option selected disabled>Select Section</option>
+                            <option selected>Select Section</option>
                             @foreach($sections as $section)
                                 <option value="{{ $section }}" @selected(old('section') == $section)>
                                     {{ $section }}

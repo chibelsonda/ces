@@ -2,12 +2,13 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\StoreSubjectOfferingRequest;
-use App\Http\Requests\UpdateSubjectOfferingRequest;
+use Illuminate\Http\Request;
 use App\Models\SubjectOffering;
-use App\Services\SubjectOfferingService;
 use App\Services\CourseService;
 use App\Services\SubjectService;
+use App\Services\SubjectOfferingService;
+use App\Http\Requests\StoreSubjectOfferingRequest;
+use App\Http\Requests\UpdateSubjectOfferingRequest;
 
 class SubjectOfferingController extends Controller
 {
@@ -20,23 +21,37 @@ class SubjectOfferingController extends Controller
     public function index()
     {
         $subjectOfferings = $this->subjectOfferingService->getAll();
+        $courses = $this->courseService->getCourses();
+        $subjects = $this->subjectService->getSubjects();
+        $sections = $this->createSections();
+        $schoolYears = $this->createSchoolYears();
+        $yearLevels = $this->createYearLevels();
 
-        return view('subject_offering.index', compact('subjectOfferings'))
-               ->with('i', (request()->input('page', 1) - 1) * 5);
+        return view('subject_offering.index', compact(
+                'subjectOfferings', 
+                'sections', 
+                'subjects', 
+                'courses',
+                'schoolYears',
+                'yearLevels'
+            ))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
     }
 
     public function create()
     {
         $courses = $this->courseService->getCourses();
         $subjects = $this->subjectService->getSubjects();
-        $sections = [ 'A', 'B', 'C', 'D', 'E', 'F'];
+        $sections = $this->createSections();
+        $years = $this->createSchoolYears();
 
-        $years = [];
-        for( $i = 0; $i <= 2; $i++){
-            array_push($years, (date('Y') - 1) + $i);
-        }
-
-        return view('subject_offering.create', compact('years', 'courses', 'subjects', 'sections'));
+        return view('subject_offering.create', compact(
+            'years', 
+            'courses', 
+            'subjects', 
+            'sections',
+            'years'
+        ));
     }
 
     public function store(StoreSubjectOfferingRequest $request)
@@ -58,14 +73,16 @@ class SubjectOfferingController extends Controller
     {
         $courses = $this->courseService->getCourses();
         $subjects = $this->subjectService->getSubjects();
-        $sections = [ 'A', 'B', 'C', 'D', 'E', 'F'];
+        $sections = $this->createSections();
 
         $years = [];
         for( $i = 0; $i <= 2; $i++){
             array_push($years, (date('Y') - 1) + $i);
         }
 
-        return view('subject_offering.edit', compact('years', 'courses', 'subjects', 'sections', 'subjectOffering'));
+        return view('subject_offering.edit', 
+            compact('years', 'courses', 'subjects', 'sections', 'subjectOffering')
+        );
     }
 
     public function update(UpdateSubjectOfferingRequest $request, SubjectOffering $subjectOffering)
@@ -85,5 +102,45 @@ class SubjectOfferingController extends Controller
         return redirect()->route('subject-offerings.index')
                 ->with('success','Subject offering has been deleted successfully');
         
+    }
+
+    public function search(Request $request)
+    {
+        $subjectOfferings = $this->subjectOfferingService->getAll($request);
+        $courses = $this->courseService->getCourses();
+        $subjects = $this->subjectService->getSubjects();
+        $sections = $this->createSections();
+        $schoolYears = $this->createSchoolYears();
+        $yearLevels = $this->createYearLevels();
+
+        return view('subject_offering.index', compact(
+                'subjectOfferings', 
+                'sections', 
+                'subjects', 
+                'courses',
+                'schoolYears',
+                'yearLevels'
+            ))
+            ->with('i', (request()->input('page', 1) - 1) * 5);
+    }
+
+    private function createSchoolYears()
+    {
+        $years = [];
+        for( $i = 0; $i <= 2; $i++){
+            array_push($years, (date('Y') - 1) + $i);
+        }
+
+        return  $years;
+    }
+
+    private function createSections()
+    {
+        return ['A', 'B', 'C', 'D', 'E', 'F'];
+    }
+
+    private function createYearLevels()
+    {
+        return [1, 2, 3, 4, 5];
     }
 }

@@ -42,4 +42,8 @@ Route::group(['middleware' => ['auth'], "prefix" => "subjects"], function() {
 Route::resource('courses', CourseController::class)->middleware('auth');
 Route::resource('instructors', InstructorController::class)->middleware('auth');
 Route::resource('rooms', RoomController::class)->middleware('auth');
+
+Route::group(['middleware' => ['auth'], "prefix" => "subject-offerings"], function() {
+    Route::get('/search', [SubjectOfferingController::class, 'search'])->name('subject-offerings.search');
+});
 Route::resource('subject-offerings', SubjectOfferingController::class)->middleware('auth');
