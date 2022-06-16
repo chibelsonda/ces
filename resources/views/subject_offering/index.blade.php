@@ -93,10 +93,11 @@
         </div>
     @endif
    
-    <table class="table table-sm table-bordered">
+    <table class="table table-sm">
         <tr>
             <th>ID</th>
             <th>Course</th>
+            <th>Year Level</th>
             <th>Subject</th>
             <th>Description</th>
             <th>Section</th>
@@ -107,6 +108,7 @@
         <tr>
             <td>{{ $subjectOffering->id }}</td>
             <td>{{ $subjectOffering->course }}</td>
+            <td>{{ $subjectOffering->year_level }}</td>
             <td>{{ $subjectOffering->subject }}</td>
             <td>{{ $subjectOffering->description }}</td>
             <td>{{ $subjectOffering->section }}</td>

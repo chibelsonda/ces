@@ -21,6 +21,7 @@ class SubjectOfferingService{
         $subjectOfferings = SubjectOffering::select('subject_offerings.id', 
                 'subject_offerings.school_year',
                 'subject_offerings.section',
+                'subject_offerings.year_level',
                 'c.name AS course', 
                 's.code AS subject', 
                 's.description')

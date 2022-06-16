@@ -11,6 +11,7 @@ class SubjectOffering extends Model
 
     protected $fillable = [
         'course_id', 
+        'year_level',
         'subject_id',
         'school_year',
         'section'

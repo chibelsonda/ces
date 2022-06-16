@@ -36,10 +36,10 @@
                     <div class="col-xs-12 col-sm-12 col-md-12">
                         <label>Year:</label>
                         <select class="form-select" name="school_year" aria-label="Select Year">
-                            <option selected>Select Year</option>
-                            @foreach($years as $year)
-                                <option value="{{ $year }}" @selected(old('school_year') == $year)>
-                                    {{ $year }}
+                            <option selected value="">Select Year</option>
+                            @foreach($schoolYears as $schoolYear)
+                                <option value="{{ $schoolYear }}" @selected(old('school_year') == $schoolYear)>
+                                    {{ $schoolYear }}
                                 </option>
                             @endforeach
                         </select>
@@ -48,7 +48,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                         <label>Course:</label>
                         <select class="form-select" name="course_id" aria-label="Select Course">
-                            <option selected>Select Course</option>
+                            <option selected value="">Select Course</option>
                             @foreach($courses as $course)
                                 <option value="{{ $course->id }}" @selected(old('course_id') == $course->id)>
                                     {{ $course->name }}
@@ -58,9 +58,21 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
+                        <label>Year Level:</label>
+                        <select class="form-select" name="year_level" aria-label="Select Year Level">
+                            <option selected value="">Select Year Level</option>
+                            @foreach($yearLevels as $yearLevel)
+                                <option value="{{ $yearLevel }}" @selected(old('year_level') == $yearLevel)>
+                                    {{ $yearLevel }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                         <label>Subject:</label>
                         <select class="form-select" name="subject_id" aria-label="Select Subject">
-                            <option selected>Select Subject</option>
+                            <option selected value="">Select Subject</option>
                             @foreach($subjects as $subject)
                                 <option value="{{ $subject->id }}" @selected(old('subject_id') == $subject->id)>
                                     {{ $subject->code . ' - ' . $subject->description }}
@@ -72,7 +84,7 @@
                     <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                         <label>Section:</label>
                         <select class="form-select" name="section" aria-label="Select Subject">
-                            <option selected>Select Section</option>
+                            <option selected value="">Select Section</option>
                             @foreach($sections as $section)
                                 <option value="{{ $section }}" @selected(old('section') == $section)>
                                     {{ $section }}

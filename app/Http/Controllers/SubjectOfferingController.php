@@ -43,14 +43,15 @@ class SubjectOfferingController extends Controller
         $courses = $this->courseService->getCourses();
         $subjects = $this->subjectService->getSubjects();
         $sections = $this->createSections();
-        $years = $this->createSchoolYears();
+        $yearLevels = $this->createYearLevels();
+        $schoolYears = $this->createSchoolYears();
 
         return view('subject_offering.create', compact(
-            'years', 
             'courses', 
             'subjects', 
             'sections',
-            'years'
+            'schoolYears',
+            'yearLevels'
         ));
     }
 
@@ -74,15 +75,17 @@ class SubjectOfferingController extends Controller
         $courses = $this->courseService->getCourses();
         $subjects = $this->subjectService->getSubjects();
         $sections = $this->createSections();
+        $yearLevels = $this->createYearLevels();
+        $schoolYears = $this->createSchoolYears();
 
-        $years = [];
-        for( $i = 0; $i <= 2; $i++){
-            array_push($years, (date('Y') - 1) + $i);
-        }
-
-        return view('subject_offering.edit', 
-            compact('years', 'courses', 'subjects', 'sections', 'subjectOffering')
-        );
+        return view('subject_offering.edit', compact(
+                'courses', 
+                'subjects', 
+                'sections', 
+                'subjectOffering',
+                'yearLevels',
+                'schoolYears'
+            ));
     }
 
     public function update(UpdateSubjectOfferingRequest $request, SubjectOffering $subjectOffering)
