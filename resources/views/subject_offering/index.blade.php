@@ -16,9 +16,9 @@
 
                     <div class="row">
 
-                        <div class="col-12 col-md-6 col-lg-2 mb-1">
-                            <select class="form-select" name="school_year" aria-label="Select Year">
-                                <option value="">Select Year</option>
+                        <div class="col-12 col-md-6 col-lg-2 mb-2">
+                            <select class="form-select form-select-sm" name="school_year" aria-label="-- All Year">
+                                <option value="">-- All School Years</option>
                                 @foreach($schoolYears as $schoolYear)
                                     <option value="{{ $schoolYear }}" @selected(request()->get('school_year') == $schoolYear)>
                                         {{ $schoolYear }}
@@ -27,9 +27,9 @@
                             </select>
                         </div>
 
-                        <div class="col-12 col-md-6 col-lg-2 mb-1">
-                            <select class="form-select" name="course_id" aria-label="Select Course">
-                                <option value="">Select Course</option>
+                        <div class="col-12 col-md-6 col-lg-2 mb-2">
+                            <select class="form-select form-select-sm" name="course_id" aria-label="-- All Course">
+                                <option value="">-- All Courses</option>
                                 @foreach($courses as $course)
                                     <option value="{{ $course->id }}" @selected(request()->get('course_id') == $course->id)>
                                         {{ $course->name }}
@@ -38,9 +38,9 @@
                             </select>
                         </div>
 
-                        <div class="col-12 col-md-6 col-lg-2 mb-1">
-                            <select class="form-select" name="year_level" aria-label="Select Year Level">
-                                <option value="">Select Year Level</option>
+                        <div class="col-12 col-md-6 col-lg-2 mb-2">
+                            <select class="form-select form-select-sm" name="year_level" aria-label="-- All Year Level">
+                                <option value="">-- All Year Levels</option>
                                 @foreach($yearLevels as $yearLevel)
                                     <option value="{{ $yearLevel }}" @selected(request()->get('year_level') == $yearLevel)>
                                         {{ $yearLevel }}
@@ -49,9 +49,9 @@
                             </select>
                         </div>
 
-                        <div class="col-12 col-md-6 col-lg-2 mb-1">
-                            <select class="form-select" name="section" aria-label="Select Subject">
-                                <option value="">Select Section</option>
+                        <div class="col-12 col-md-6 col-lg-2 mb-2">
+                            <select class="form-select form-select-sm" name="section" aria-label="-- All Subject">
+                                <option value="">-- All Sections</option>
                                 @foreach($sections as $section)
                                     <option value="{{ $section }}" @selected(request()->get('section') == $section)>
                                         {{ $section }}
@@ -60,9 +60,9 @@
                             </select>
                         </div>
 
-                        <div class="col-12 col-md-6 col-lg-2 mb-1">
-                            <select class="form-select" name="subject_id" aria-label="Select Subject">
-                                <option value="">Select Subject</option>
+                        <div class="col-12 col-md-6 col-lg-2 mb-2">
+                            <select class="form-select form-select-sm" name="subject_id" aria-label="-- All Subject">
+                                <option value="">-- All Subjects</option>
                                 @foreach($subjects as $subject)
                                     <option value="{{ $subject->id }}" @selected(request()->get('subject_id') == $subject->id)>
                                         {{ $subject->code }}
@@ -71,7 +71,7 @@
                             </select>
                         </div>
     
-                        <div class="col-12 col-md-6 col-lg-2 mb-1">
+                        <div class="col-12 col-md-6 col-lg-2 mb-2">
                             <button type="submit" class="btn btn-sm btn-info w-100">Search</button>
                         </div>
                     </div>
@@ -106,18 +106,20 @@
         </tr>
         @foreach ($subjectOfferings as $subjectOffering)
         <tr>
-            <td>{{ $subjectOffering->id }}</td>
-            <td>{{ $subjectOffering->course }}</td>
-            <td>{{ $subjectOffering->year_level }}</td>
-            <td>{{ $subjectOffering->subject }}</td>
-            <td>{{ $subjectOffering->description }}</td>
-            <td>{{ $subjectOffering->section }}</td>
-            <td>{{ $subjectOffering->school_year }}</td>
-            <td>
+            <td class="align-middle">{{ $subjectOffering->id }}</td>
+            <td class="align-middle">{{ $subjectOffering->course }}</td>
+            <td class="align-middle">{{ $subjectOffering->year_level }}</td>
+            <td class="align-middle">{{ $subjectOffering->subject }}</td>
+            <td class="align-middle">{{ $subjectOffering->description }}</td>
+            <td class="align-middle">{{ $subjectOffering->section }}</td>
+            <td class="align-middle">{{ $subjectOffering->school_year }}</td>
+            <td class="align-middle">
                 <form action="{{ route('subject-offerings.destroy', $subjectOffering->id) }}" method="POST">
        
                     <a class="btn btn-sm btn-primary" href="{{ route('subject-offerings.edit', $subjectOffering) }}">Edit</a>
-   
+                    
+                    <a class="btn btn-sm btn-primary" href="{{ route('subject-offerings.schedules', $subjectOffering) }}">Schedules</a>
+
                     @csrf
                     @method('DELETE')
                     <button type="submit" class="btn btn-sm btn-danger">Delete</button>
