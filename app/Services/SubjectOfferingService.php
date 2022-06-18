@@ -47,6 +47,23 @@ class SubjectOfferingService{
         return $subjectOfferings;
     }
 
+    public function getDetails($subjectOfferingId)
+    {
+        $subjectOffering = SubjectOffering::select('subject_offerings.id', 
+                'subject_offerings.school_year',
+                'subject_offerings.section',
+                'subject_offerings.year_level',
+                'c.name AS course', 
+                's.code AS subject', 
+                's.description')
+            ->join('courses AS c', 'c.id', '=', 'subject_offerings.course_id')
+            ->join('subjects AS s', 's.id', '=', 'subject_offerings.subject_id')
+            ->where('subject_offerings.id', '=', $subjectOfferingId)
+            ->first();
+
+        return $subjectOffering;
+    }
+
     public function store($subjectOffering) 
     {
         return SubjectOffering::create($subjectOffering);
