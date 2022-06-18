@@ -45,5 +45,6 @@ Route::resource('rooms', RoomController::class)->middleware('auth');
 
 Route::group(['middleware' => ['auth'], "prefix" => "subject-offerings"], function() {
     Route::get('/search', [SubjectOfferingController::class, 'search'])->name('subject-offerings.search');
+    Route::get('/schedules/{subjectOffering}', [SubjectOfferingController::class, 'showSchedules'])->name('subject-offerings.schedules');
 });
 Route::resource('subject-offerings', SubjectOfferingController::class)->middleware('auth');
