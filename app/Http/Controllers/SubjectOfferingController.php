@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Illuminate\Http\Request;
 use App\Models\SubjectOffering;
 use App\Services\CourseService;
@@ -12,6 +14,10 @@ use App\Http\Requests\UpdateSubjectOfferingRequest;
 
 class SubjectOfferingController extends Controller
 {
+    const TIME_INTERVAL_START = '08:00';
+    const TIME_INTERVAL_END = '20:00';
+    const THIRTY_MINUTES_INTERVAL = '30 minutes';
+
     public function __construct(
         private $subjectOfferingService = new SubjectOfferingService(),
         private $courseService = new CourseService(),
@@ -65,9 +71,13 @@ class SubjectOfferingController extends Controller
                 ->with('success','Subject offering has been created successfully.');
     }
 
-    public function show(SubjectOffering $subjectOffering)
+    public function showSchedules(SubjectOffering $subjectOffering)
     {
-        //
+        dd($this->getTimeIntervals());
+
+        $subjectOffering = $this->subjectOfferingService->getDetails($subjectOffering->id);
+        
+        return view('subject_offering_schedule.index', compact('subjectOffering'));
     }
 
     public function edit(SubjectOffering $subjectOffering)
@@ -145,5 +155,21 @@ class SubjectOfferingController extends Controller
     private function createYearLevels()
     {
         return [1, 2, 3, 4, 5];
+    }
+
+    private function getTimeIntervals()
+    {
+        $period = CarbonPeriod::create(
+            Carbon::Parse(self::TIME_INTERVAL_START), 
+            self::THIRTY_MINUTES_INTERVAL, 
+            Carbon::Parse(self::TIME_INTERVAL_END)
+        );
+
+        $timeIntervals = [];
+        foreach($period as $time){
+            array_push($timeIntervals, $time->format('h:i A'));
+        }
+
+        return $timeIntervals;
     }
 }
