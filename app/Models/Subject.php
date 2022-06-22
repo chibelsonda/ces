@@ -12,6 +12,10 @@ class Subject extends Model
     protected $fillable = [
         'code', 
         'description',
-        'units'
+        'units',
+        'created_at',
+        'update_at'
     ];
+
+    public $timestamps = true;
 }

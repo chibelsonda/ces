@@ -11,6 +11,10 @@ class Course extends Model
 
     protected $fillable = [
         'name', 
-        'description'
+        'description',
+        'created_at',
+        'update_at'
     ];
+
+    public $timestamps = true;
 }

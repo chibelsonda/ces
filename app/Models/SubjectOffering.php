@@ -14,7 +14,9 @@ class SubjectOffering extends Model
         'year_level',
         'subject_id',
         'school_year',
-        'section'
+        'section',
+        'created_at',
+        'updated_at'
     ];
 
     public $timestamps = true;

@@ -10,6 +10,10 @@ class Room extends Model
     use HasFactory;
 
     protected $fillable = [
-        'name'
+        'name',
+        'created_at',
+        'update_at'
     ];
+
+    public $timestamps = true;
 }
