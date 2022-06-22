@@ -15,6 +15,11 @@ class RoomService{
         return Room::latest()->paginate(5);
     }
 
+    public function getRooms()
+    {
+        return Room::all();
+    }
+
     public function store($course) 
     {
         return Room::insert($course);
