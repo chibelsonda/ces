@@ -9,5 +9,16 @@ class SubjectOfferingSchedule extends Model
 {
     use HasFactory;
 
+    protected $fillable = [
+        'subject_offering_id',
+        'room_id',
+        'instructor_id',
+        'days',
+        'time_start',
+        'time_end',
+        'created_at',
+        'updated_at'
+    ];
+
     public $timestamps = true;
 }

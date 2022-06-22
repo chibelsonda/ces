@@ -8,6 +8,8 @@ use Illuminate\Http\Request;
 use App\Models\SubjectOffering;
 use App\Services\CourseService;
 use App\Services\SubjectService;
+use App\Services\RoomService;
+use App\Services\InstructorService;
 use App\Services\SubjectOfferingService;
 use App\Http\Requests\StoreSubjectOfferingRequest;
 use App\Http\Requests\UpdateSubjectOfferingRequest;
@@ -21,7 +23,9 @@ class SubjectOfferingController extends Controller
     public function __construct(
         private $subjectOfferingService = new SubjectOfferingService(),
         private $courseService = new CourseService(),
-        private $subjectService = new SubjectService()
+        private $subjectService = new SubjectService(),
+        private $instructorService = new InstructorService(),
+        private $roomService = new RoomService(),
     ){}
     
     public function index()
@@ -73,11 +77,18 @@ class SubjectOfferingController extends Controller
 
     public function showSchedules(SubjectOffering $subjectOffering)
     {
-        dd($this->getTimeIntervals());
+        $timeIntervals = $this->getTimeIntervals();
+        $rooms = $this->roomService->getRooms();
+        $instructors = $this->instructorService->getInstructors();
 
         $subjectOffering = $this->subjectOfferingService->getDetails($subjectOffering->id);
         
-        return view('subject_offering_schedule.index', compact('subjectOffering'));
+        return view('subject_offering_schedule.index', compact(
+            'subjectOffering',
+            'timeIntervals',
+            'rooms',
+            'instructors'
+        ));
     }
 
     public function edit(SubjectOffering $subjectOffering)
