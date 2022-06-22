@@ -15,6 +15,11 @@ class InstructorService{
         return Instructor::latest()->paginate(5);
     }
 
+    public function getInstructors()
+    {
+        return Instructor::all();
+    }
+
     public function store($course) 
     {
         return Instructor::insert($course);
