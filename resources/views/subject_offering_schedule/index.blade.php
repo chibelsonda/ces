@@ -21,11 +21,14 @@ Testing
         </ol>
     </div>
 
-    <form action="{{ route('subject-offerings.store') }}" method="POST">
+    <form onsubmit="return false;" action="" method="POST">
         @csrf
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
+
+            <input type="hidden" id="subject_offering_id" value="{{ $subjectOffering->id }}">
+
             <label>Time Start:</label>
-            <select class="form-select" name="time_start" aria-label="Select Time Start">
+            <select class="form-select" id="time_start" name="time_start" aria-label="Select Time Start">
                 <option selected value="">Select Start Time</option>
                 @foreach($timeIntervals as $timeInterval)
                     <option value="{{ $timeInterval }}" @selected(old('time_start') == $timeInterval)>
@@ -37,7 +40,7 @@ Testing
 
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
             <label>Time End:</label>
-            <select class="form-select" name="time_end" aria-label="Select Time End">
+            <select class="form-select" id="time_end" name="time_end" aria-label="Select Time End">
                 <option selected value="">Select Start Time</option>
                 @foreach($timeIntervals as $timeInterval)
                     <option value="{{ $timeInterval }}" @selected(old('time_end') == $timeInterval)>
@@ -49,7 +52,7 @@ Testing
 
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
             <label>Instructor:</label>
-            <select class="form-select" name="instructor_id" aria-label="Select Instructor">
+            <select class="form-select" id="instructor_id" name="instructor_id" aria-label="Select Instructor">
                 <option selected value="">Select Instructor</option>
                 @foreach($instructors as $instructor)
                     <option value="{{ $instructor->id }}" @selected(old('instructor_id') == $instructor->id)>
@@ -61,7 +64,7 @@ Testing
 
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
             <label>Room:</label>
-            <select class="form-select" name="room_id" aria-label="Select Room">
+            <select class="form-select" id="room_id" name="room_id" aria-label="Select Room">
                 <option selected value="">Select Room</option>
                 @foreach($rooms as $room)
                     <option value="{{ $room->id }}" @selected(old('room_id') == $room->id)>
@@ -72,13 +75,10 @@ Testing
         </div>
 
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6 mt-2">
-            @php 
-                $days = ['MON', 'TUE', 'WED', 'THU', 'FRI', 'SAT', 'SUN'];
-            @endphp
 
-            @foreach($days as $day)
+            @foreach($days as $key => $day)
                 <div class="form-check form-check-inline">
-                    <input class="form-check-input" type="checkbox" name="days[]" value="{{ $day }}" id="day{{$day}}">
+                    <input class="form-check-input" type="checkbox" name="days[]" value="{{ $key }}" id="day{{$day}}">
                     <label class="form-check-label" for="flexCheckDefault">
                         {{ $day }}
                     </label>
@@ -87,7 +87,7 @@ Testing
         </div>
 
         <div class="col-12 col-sm-12 col-md-8 col-lg-6 text-center mt-3">
-            <button type="submit" class="btn btn-primary w-100">Create</button>
+            <button type="submit" class="btn btn-primary w-100" id="btn-create">Create</button>
         </div>
 
     </form>
@@ -102,6 +102,7 @@ Testing
 @section('script')
 <script src="{{ asset('fullcalendar/js/main.js') }}"></script>
 <script src="{{ asset('/js/jquery-3.6.0.min.js') }}"></script>
+<script src="{{ asset('js/toasts.js') }}"></script>
 <script src="{{ asset('js/schedule.js') }}"></script>
 <script src='https://cdn.jsdelivr.net/npm/moment@2.27.0/min/moment.min.js'></script>
 <script src='https://cdn.jsdelivr.net/npm/@fullcalendar/moment@5.5.0/main.global.min.js'></script>
@@ -109,11 +110,41 @@ Testing
 <script type="text/javascript">
 $(document).ready( function () {    
     var days = [];
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
 
     $("input[name='days[]']").click(function(){
         days = [];
         $("[name='days[]']:checked").each( function () {
             days.push($(this).val());
+        });
+    });
+
+    $('#btn-create').click(function() {        
+        let data = {
+            subject_offering_id : $('#subject_offering_id').val(),
+            days : days.toString(),
+            time_start : moment($('#time_start').val(), "HH:mm").format('HH:mm'),
+            time_end : moment($('#time_end').val(), "HH:mm").format('HH:mm'),
+            instructor_id : $('#instructor_id').val(),
+            room_id : $('#room_id').val(),
+        }
+
+        $.ajax({
+            type: 'POST',
+            url: `/subject-offering-schedules`,
+            data: data,
+            success: function (response) {
+
+                console.log(response);
+            },
+            error: function (e) {
+                $.snack('error','Error occur', 5000);
+                console.log(e);
+            }
         });
     });
 

@@ -4,10 +4,14 @@ namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreSubjectOfferingScheduleRequest;
 use App\Http\Requests\UpdateSubjectOfferingScheduleRequest;
-use App\Models\SubjectOfferingSchedule;
+use App\Services\SubjectOfferingScheduleService;
 
 class SubjectOfferingScheduleController extends Controller
 {
+    public function __construct(
+        private $subjectOfferingScheduleService = new SubjectOfferingScheduleService()
+    ){}
+
     public function index()
     {
         //
@@ -20,7 +24,15 @@ class SubjectOfferingScheduleController extends Controller
 
     public function store(StoreSubjectOfferingScheduleRequest $request)
     {
-        //
+
+        $subjectOfferingSchedule = $request->except(['_token','_method']);
+
+        $this->subjectOfferingScheduleService->store($subjectOfferingSchedule);
+
+        return response()->json([
+            'message' => 'Schedule has been saved.',
+            'success' => true
+        ], 201);
     }
 
     public function show(SubjectOfferingSchedule $subjectOfferingSchedule)
