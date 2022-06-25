@@ -80,6 +80,7 @@ class SubjectOfferingController extends Controller
         $timeIntervals = $this->getTimeIntervals();
         $rooms = $this->roomService->getRooms();
         $instructors = $this->instructorService->getInstructors();
+        $days = $this->getDays();
 
         $subjectOffering = $this->subjectOfferingService->getDetails($subjectOffering->id);
         
@@ -87,7 +88,8 @@ class SubjectOfferingController extends Controller
             'subjectOffering',
             'timeIntervals',
             'rooms',
-            'instructors'
+            'instructors',
+            'days'
         ));
     }
 
@@ -182,5 +184,18 @@ class SubjectOfferingController extends Controller
         }
 
         return $timeIntervals;
+    }
+
+    private function getDays()
+    {
+        return [
+            0 => 'SUN',
+            1 => 'MON', 
+            2 => 'TUE', 
+            3 => 'WED', 
+            4 => 'THU', 
+            5 => 'FRI', 
+            6 => 'SAT'
+        ];
     }
 }
