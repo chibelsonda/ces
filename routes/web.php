@@ -6,6 +6,7 @@ use App\Http\Controllers\SubjectController;
 use App\Http\Controllers\InstructorController;
 use App\Http\Controllers\RoomController;
 use App\Http\Controllers\SubjectOfferingController;
+use App\Http\Controllers\SubjectOfferingScheduleController;
 
 
 /*
@@ -48,3 +49,5 @@ Route::group(['middleware' => ['auth'], "prefix" => "subject-offerings"], functi
     Route::get('/schedules/{subjectOffering}', [SubjectOfferingController::class, 'showSchedules'])->name('subject-offerings.schedules');
 });
 Route::resource('subject-offerings', SubjectOfferingController::class)->middleware('auth');
+
+Route::resource('subject-offering-schedules', SubjectOfferingScheduleController::class)->middleware('auth');
