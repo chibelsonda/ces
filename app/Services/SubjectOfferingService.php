@@ -53,6 +53,7 @@ class SubjectOfferingService{
                 'subject_offerings.school_year',
                 'subject_offerings.section',
                 'subject_offerings.year_level',
+                'c.id AS course_id',
                 'c.name AS course', 
                 's.code AS subject', 
                 's.description')
