@@ -51,3 +51,6 @@ Route::group(['middleware' => ['auth'], "prefix" => "subject-offerings"], functi
 Route::resource('subject-offerings', SubjectOfferingController::class)->middleware('auth');
 
 Route::resource('subject-offering-schedules', SubjectOfferingScheduleController::class)->middleware('auth');
+Route::group(['middleware' => ['auth'], "prefix" => "subject-offering-schedules"], function() {
+    Route::get('/section-schedules/{subjectOffering}', [SubjectOfferingScheduleController::class, 'getSectionSchedules'])->name('subject-offering-schedules.section-schedules');
+});
