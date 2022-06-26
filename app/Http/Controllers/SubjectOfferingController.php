@@ -77,7 +77,7 @@ class SubjectOfferingController extends Controller
 
     public function showSchedules(SubjectOffering $subjectOffering)
     {
-        $timeIntervals = $this->getTimeIntervals();
+        $timeIntervals = $this->generateTimeIntervals();
         $rooms = $this->roomService->getRooms();
         $instructors = $this->instructorService->getInstructors();
         $days = $this->getDays();
@@ -170,7 +170,7 @@ class SubjectOfferingController extends Controller
         return [1, 2, 3, 4, 5];
     }
 
-    private function getTimeIntervals()
+    private function generateTimeIntervals()
     {
         $period = CarbonPeriod::create(
             Carbon::Parse(self::TIME_INTERVAL_START), 
