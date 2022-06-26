@@ -162,12 +162,12 @@ class SubjectOfferingController extends Controller
 
     private function getSections()
     {
-        return config('constants.sections');
+        return config('constants.SECTIONS');
     }
 
     private function getYearLevels()
     {
-        return config('constants.yearLevels');
+        return config('constants.YEAR_LEVELS');
     }
 
     private function generateTimeIntervals()
@@ -188,6 +188,6 @@ class SubjectOfferingController extends Controller
 
     private function getDays()
     {
-        return config('constants.days');
+        return config('constants.DAYS');
     }
 }

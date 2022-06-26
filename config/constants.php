@@ -1,7 +1,7 @@
 <?php
 
 return [
-    'days' => [
+    'DAYS' => [
         0 => 'SUN',
         1 => 'MON', 
         2 => 'TUE', 
@@ -10,8 +10,8 @@ return [
         5 => 'FRI', 
         6 => 'SAT'
     ],
-    'sections' => [
+    'SECTIONS' => [
         'A', 'B', 'C', 'D', 'E', 'F'
     ],
-    'yearLevels' => [1, 2, 3, 4, 5]
+    'YEAR_LEVELS' => [1, 2, 3, 4, 5]
 ];
