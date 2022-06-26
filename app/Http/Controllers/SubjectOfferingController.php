@@ -33,9 +33,9 @@ class SubjectOfferingController extends Controller
         $subjectOfferings = $this->subjectOfferingService->getAll();
         $courses = $this->courseService->getCourses();
         $subjects = $this->subjectService->getSubjects();
-        $sections = $this->createSections();
+        $sections = $this->getSections();
         $schoolYears = $this->createSchoolYears();
-        $yearLevels = $this->createYearLevels();
+        $yearLevels = $this->getYearLevels();
 
         return view('subject_offering.index', compact(
                 'subjectOfferings', 
@@ -52,8 +52,8 @@ class SubjectOfferingController extends Controller
     {
         $courses = $this->courseService->getCourses();
         $subjects = $this->subjectService->getSubjects();
-        $sections = $this->createSections();
-        $yearLevels = $this->createYearLevels();
+        $sections = $this->getSections();
+        $yearLevels = $this->getYearLevels();
         $schoolYears = $this->createSchoolYears();
 
         return view('subject_offering.create', compact(
@@ -97,8 +97,8 @@ class SubjectOfferingController extends Controller
     {
         $courses = $this->courseService->getCourses();
         $subjects = $this->subjectService->getSubjects();
-        $sections = $this->createSections();
-        $yearLevels = $this->createYearLevels();
+        $sections = $this->getSections();
+        $yearLevels = $this->getYearLevels();
         $schoolYears = $this->createSchoolYears();
 
         return view('subject_offering.edit', compact(
@@ -135,9 +135,9 @@ class SubjectOfferingController extends Controller
         $subjectOfferings = $this->subjectOfferingService->getAll($request);
         $courses = $this->courseService->getCourses();
         $subjects = $this->subjectService->getSubjects();
-        $sections = $this->createSections();
+        $sections = $this->getSections();
         $schoolYears = $this->createSchoolYears();
-        $yearLevels = $this->createYearLevels();
+        $yearLevels = $this->getYearLevels();
 
         return view('subject_offering.index', compact(
                 'subjectOfferings', 
@@ -160,14 +160,14 @@ class SubjectOfferingController extends Controller
         return  $years;
     }
 
-    private function createSections()
+    private function getSections()
     {
-        return ['A', 'B', 'C', 'D', 'E', 'F'];
+        return config('constants.sections');
     }
 
-    private function createYearLevels()
+    private function getYearLevels()
     {
-        return [1, 2, 3, 4, 5];
+        return config('constants.yearLevels');
     }
 
     private function generateTimeIntervals()
@@ -188,14 +188,6 @@ class SubjectOfferingController extends Controller
 
     private function getDays()
     {
-        return [
-            0 => 'SUN',
-            1 => 'MON', 
-            2 => 'TUE', 
-            3 => 'WED', 
-            4 => 'THU', 
-            5 => 'FRI', 
-            6 => 'SAT'
-        ];
+        return config('constants.days');
     }
 }
