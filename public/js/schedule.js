@@ -3,19 +3,11 @@ function generateRandomColor(){
     return "#" + ((1<<24)*Math.random() | 0).toString(16);
 }
 
-$(document).ready(function() {
-
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    var calendarEl = document.getElementById('calendar');
+function displayCalendar(calendar, events){
+    var calendarEl = document.getElementById(calendar);
 
     var calendar = new FullCalendar.Calendar(calendarEl, {
         locale: 'en',
-      //  initialDate: initialDate,
         initialView: 'timeGridWeek',
         nowIndicator: true,
         timeZone: 'local',
@@ -32,8 +24,6 @@ $(document).ready(function() {
         slotLabelInterval: "00:30:00",
         slotDuration: "00:30:00",
         slotLabelFormat: ["HH:mm"],
-        // scrollTime:"12:00:00",
-        // eventMinHeight: "15",
         dayHeaderFormat: function(date) { 
 
             let day = moment(date.date).format('ddd');
@@ -41,40 +31,13 @@ $(document).ready(function() {
             return {html: `<span style="font-weight:normal;">${day}</span>`};
         },
         eventColor: '#66c6cc',
-        events: function(info, successCallback, failureCallback) {
+        events: function(info, successCallback, failureCallback)  {
 
-            let events = [];
-
-            $.ajax({
-                type: 'GET',
-                url: `/subject-offering-schedules/section-schedules/${$('#subject_offering').val()}`,
-                success: function (response) {
-                    
-                    $.map(response.section_schedules, function(schedule) {
-                        events.push({
-                            id: schedule.id,
-                            title: `${schedule.code} - ${schedule.description}`, 
-                            daysOfWeek: schedule.days.split(','),
-                            startTime: schedule.time_start,
-                            endTime: schedule.time_end,
-                            color: generateRandomColor()
-
-                        });
-                    });
-
-                    successCallback(events);
-                    
-                },
-                error: function (e) {
-                    $.snack('error','Error occur', 5000);
-                    console.log(e);
-                }
-            });
+            successCallback(events); 
         },
 
         selectAllow:function(info){
-            $.snack('error','別の時間帯を選択してください', 5000);
-            return false;
+            // return false;
         },
 
         eventClick: function(info) {
@@ -83,4 +46,107 @@ $(document).ready(function() {
     });
 
     calendar.render();
+}
+
+$(document).ready(function() {
+
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+
+    let subjectOffering = $('#subject_offering').val();
+
+    $.ajax({
+        type: 'GET',
+        url: `/subject-offering-schedules/section-schedules/${subjectOffering}`,
+        success: function (response) {
+            let events = [];
+            $.map(response.section_schedules, function(schedule) {
+                events.push({
+                    id: schedule.id,
+                    title: `${schedule.code} - ${schedule.description}`, 
+                    daysOfWeek: schedule.days.split(','),
+                    startTime: schedule.time_start,
+                    endTime: schedule.time_end,
+                    color: generateRandomColor()
+                });
+            });
+        
+            displayCalendar('sectionCalendar', events);
+
+            // displayCalendar('instructorCalendar', events);
+
+            // displayCalendar('roomCalendar', events);
+        },
+        error: function (e) {
+            $.snack('error','Error occur', 5000);
+            console.log(e);
+        }
+    });
+
+    subjectOffering = JSON.parse(subjectOffering);
+
+    let room = {
+        school_year : subjectOffering.school_year,
+        room_id : 2
+    }
+    
+    $.ajax({
+        type: 'GET',
+        url: `/subject-offering-schedules/room-schedules/${JSON.stringify(room)}`,
+        success: function (response) {
+
+            let events = [];
+            $.map(response.room_schedules, function(schedule) {
+                events.push({
+                    id: schedule.id,
+                    title: `${schedule.code} - ${schedule.description}`, 
+                    daysOfWeek: schedule.days.split(','),
+                    startTime: schedule.time_start,
+                    endTime: schedule.time_end,
+                    color: generateRandomColor()
+                });
+            });
+
+            displayCalendar('roomCalendar', events);
+        },
+        error: function (e) {
+            $.snack('error','Error occur', 5000);
+            console.log(e);
+        }
+    });
+
+
+    let instructor = {
+        school_year : subjectOffering.school_year,
+        instructor_id : 1
+    }
+    
+    $.ajax({
+        type: 'GET',
+        url: `/subject-offering-schedules/instructor-schedules/${JSON.stringify(instructor)}`,
+        success: function (response) {
+
+            let events = [];
+            $.map(response.instructor_schedules, function(schedule) {
+                events.push({
+                    id: schedule.id,
+                    title: `${schedule.code} - ${schedule.description}`, 
+                    daysOfWeek: schedule.days.split(','),
+                    startTime: schedule.time_start,
+                    endTime: schedule.time_end,
+                    color: generateRandomColor()
+                });
+            });
+
+            displayCalendar('instructorCalendar', events);
+        },
+        error: function (e) {
+            $.snack('error','Error occur', 5000);
+            console.log(e);
+        }
+    });
+     
 });
