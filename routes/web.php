@@ -53,4 +53,7 @@ Route::resource('subject-offerings', SubjectOfferingController::class)->middlewa
 Route::resource('subject-offering-schedules', SubjectOfferingScheduleController::class)->middleware('auth');
 Route::group(['middleware' => ['auth'], "prefix" => "subject-offering-schedules"], function() {
     Route::get('/section-schedules/{subjectOffering}', [SubjectOfferingScheduleController::class, 'getSectionSchedules'])->name('subject-offering-schedules.section-schedules');
+    Route::get('/room-schedules/{subjectOffering}', [SubjectOfferingScheduleController::class, 'getRoomSchedules'])->name('subject-offering-schedules.room-schedules');
+    Route::get('/instructor-schedules/{subjectOffering}', [SubjectOfferingScheduleController::class, 'getInstructorSchedules'])->name('subject-offering-schedules.instructor-schedules');
+    
 });

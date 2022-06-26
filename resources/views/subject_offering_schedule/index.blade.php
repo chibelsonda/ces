@@ -92,7 +92,17 @@
 
     <div class="col-12 col-md-6 col-lg-4 mt-4">
         <p>Section: {{ $subjectOffering->section . ', ' . $subjectOffering->course . '-' . $subjectOffering->year_level  . ' - SY:' . $subjectOffering->school_year }}</p>
-        <div id='calendar'></div>
+        <div id='sectionCalendar'></div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mt-4">
+        <p>Instructor</p>
+        <div id='instructorCalendar'></div>
+    </div>
+
+    <div class="col-12 col-md-6 col-lg-4 mt-4">
+        <p>Room</p>
+        <div id='roomCalendar'></div>
     </div>
 
 </div>
@@ -126,8 +136,8 @@ $(document).ready( function () {
         let data = {
             subject_offering_id : $('#subject_offering_id').val(),
             days : days.toString(),
-            time_start : moment($('#time_start').val(), "HH:mm").format('HH:mm'),
-            time_end : moment($('#time_end').val(), "HH:mm").format('HH:mm'),
+            time_start : moment($('#time_start').val(), "HH:mm A").format('HH:mm'),
+            time_end : moment($('#time_end').val(), "HH:mm A").format('HH:mm'),
             instructor_id : $('#instructor_id').val(),
             room_id : $('#room_id').val(),
         }
