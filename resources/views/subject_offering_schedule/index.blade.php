@@ -1,5 +1,3 @@
-Testing
-
 @extends('layouts.admin')
 
 @section('title', 'Subject Offering Schedule')
@@ -24,7 +22,7 @@ Testing
     <form onsubmit="return false;" action="" method="POST">
         @csrf
         <div class="col-xs-12 col-sm-12 col-md-8 col-lg-6">
-
+            <input type="hidden" id="subject_offering" value="{{ $subjectOffering }}">
             <input type="hidden" id="subject_offering_id" value="{{ $subjectOffering->id }}">
 
             <label>Time Start:</label>
@@ -93,6 +91,7 @@ Testing
     </form>
 
     <div class="col-12 col-md-6 col-lg-4 mt-4">
+        <p>Section: {{ $subjectOffering->section . ', ' . $subjectOffering->course . '-' . $subjectOffering->year_level  . ' - SY:' . $subjectOffering->school_year }}</p>
         <div id='calendar'></div>
     </div>
 
