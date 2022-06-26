@@ -4,6 +4,7 @@
 
 @push('styles')
 <link href="{{ asset('fullcalendar/css/fullcalendar.css') }}" rel="stylesheet">
+<link href="{{ asset('fullcalendar/css/fullcalendar-custom.css') }}" rel="stylesheet">
 @endpush
 
 @section('content')
