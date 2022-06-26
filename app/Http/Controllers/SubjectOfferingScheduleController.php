@@ -63,4 +63,22 @@ class SubjectOfferingScheduleController extends Controller
             'section_schedules' => $sectionSchedules
         ], 200);
     }
+
+    public function getRoomSchedules($subjectOffering)
+    {
+        $roomSchedules = $this->subjectOfferingScheduleService->getSchedules(json_decode($subjectOffering));
+
+        return response()->json([
+            'room_schedules' => $roomSchedules
+        ], 200);
+    }
+
+    public function getInstructorSchedules($subjectOffering)
+    {
+        $instructorSchedules = $this->subjectOfferingScheduleService->getSchedules(json_decode($subjectOffering));
+
+        return response()->json([
+            'instructor_schedules' => $instructorSchedules
+        ], 200);
+    }
 }
