@@ -13,5 +13,10 @@ return [
     'SECTIONS' => [
         'A', 'B', 'C', 'D', 'E', 'F'
     ],
-    'YEAR_LEVELS' => [1, 2, 3, 4, 5]
+    'YEAR_LEVELS' => [1, 2, 3, 4, 5],
+    'SEMESTERS' => [
+        1 => "1st Semester", 
+        2 => "2nd Semester", 
+        3 => "Summer"
+    ]
 ];
