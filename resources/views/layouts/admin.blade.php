@@ -31,7 +31,7 @@
                         @yield('content')
                     </div>
                 </main>
-                <footer class="py-1 bg-light mt-auto">
+                <footer class="py-2 bg-light mt-auto">
                     @include('includes.footer')
                 </footer>
             </div>
