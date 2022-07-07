@@ -18,8 +18,10 @@ class SubjectOfferingService{
         $schoolYear = $filter->school_year ?? null;
         $yearLevel = $filter->year_level ?? null;
 
-        $subjectOfferings = SubjectOffering::select('subject_offerings.id', 
+        $subjectOfferings = SubjectOffering::select(
+                'subject_offerings.id', 
                 'subject_offerings.school_year',
+                'subject_offerings.semester',
                 'subject_offerings.section',
                 'subject_offerings.year_level',
                 'c.name AS course', 
@@ -49,8 +51,10 @@ class SubjectOfferingService{
 
     public function getDetails($subjectOfferingId)
     {
-        $subjectOffering = SubjectOffering::select('subject_offerings.id', 
+        $subjectOffering = SubjectOffering::select(
+                'subject_offerings.id', 
                 'subject_offerings.school_year',
+                'subject_offerings.semester',
                 'subject_offerings.section',
                 'subject_offerings.year_level',
                 'c.id AS course_id',

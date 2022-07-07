@@ -14,6 +14,7 @@ class SubjectOffering extends Model
         'year_level',
         'subject_id',
         'school_year',
+        'semester',
         'section',
         'created_at',
         'updated_at'

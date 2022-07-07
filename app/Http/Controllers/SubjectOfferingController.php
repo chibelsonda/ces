@@ -35,6 +35,7 @@ class SubjectOfferingController extends Controller
         $subjects = $this->subjectService->getSubjects();
         $sections = $this->getSections();
         $schoolYears = $this->createSchoolYears();
+        $semesters = $this->getSemesters();
         $yearLevels = $this->getYearLevels();
 
         return view('subject_offering.index', compact(
@@ -43,6 +44,7 @@ class SubjectOfferingController extends Controller
                 'subjects', 
                 'courses',
                 'schoolYears',
+                'semesters',
                 'yearLevels'
             ))
             ->with('i', (request()->input('page', 1) - 1) * 5);
@@ -55,12 +57,14 @@ class SubjectOfferingController extends Controller
         $sections = $this->getSections();
         $yearLevels = $this->getYearLevels();
         $schoolYears = $this->createSchoolYears();
+        $semesters = $this->getSemesters();
 
         return view('subject_offering.create', compact(
             'courses', 
             'subjects', 
             'sections',
             'schoolYears',
+            'semesters',
             'yearLevels'
         ));
     }
@@ -100,6 +104,7 @@ class SubjectOfferingController extends Controller
         $sections = $this->getSections();
         $yearLevels = $this->getYearLevels();
         $schoolYears = $this->createSchoolYears();
+        $semesters = $this->getSemesters();
 
         return view('subject_offering.edit', compact(
                 'courses', 
@@ -107,7 +112,8 @@ class SubjectOfferingController extends Controller
                 'sections', 
                 'subjectOffering',
                 'yearLevels',
-                'schoolYears'
+                'schoolYears',
+                'semesters'
             ));
     }
 
@@ -168,6 +174,11 @@ class SubjectOfferingController extends Controller
     private function getYearLevels()
     {
         return config('constants.YEAR_LEVELS');
+    }
+
+    private function getSemesters()
+    {
+        return config('constants.SEMESTERS');
     }
 
     private function generateTimeIntervals()

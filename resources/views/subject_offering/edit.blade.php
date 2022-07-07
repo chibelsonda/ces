@@ -49,6 +49,18 @@
                     </div>
 
                     <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
+                        <label>Semester:</label>
+                        <select class="form-select" name="semester" aria-label="Select Semester">
+                            <option selected value="">Select Semester</option>
+                            @foreach($semesters as $key => $semester)
+                                <option value="{{ $key }}" @selected(old('semester', $key) == $subjectOffering->semester)>
+                                    {{ $semester }}
+                                </option>
+                            @endforeach
+                        </select>
+                    </div>
+
+                    <div class="col-xs-12 col-sm-12 col-md-12 mt-2">
                         <label>Course:</label>
                         <select class="form-select" name="course_id" aria-label="Select Course">
                             <option selected value="">Select Course</option>

@@ -28,6 +28,17 @@
                         </div>
 
                         <div class="col-12 col-md-6 col-lg-2 mb-2">
+                            <select class="form-select form-select-sm" name="semester" aria-label="-- All Semester">
+                                <option selected value="">-- All Semester</option>
+                                @foreach($semesters as $key => $semester)
+                                    <option value="{{ $key }}" @selected(request()->get('semester') == $semester)>
+                                        {{ $semester }}
+                                    </option>
+                                @endforeach
+                            </select>
+                        </div>
+
+                        <div class="col-12 col-md-6 col-lg-2 mb-2">
                             <select class="form-select form-select-sm" name="course_id" aria-label="-- All Course">
                                 <option value="">-- All Courses</option>
                                 @foreach($courses as $course)
@@ -102,6 +113,7 @@
             <th>Description</th>
             <th>Section</th>
             <th>School Year</th>
+            <th>Semester</th>
             <th width="280px">Action</th>
         </tr>
         @foreach ($subjectOfferings as $subjectOffering)
@@ -113,6 +125,7 @@
             <td class="align-middle">{{ $subjectOffering->description }}</td>
             <td class="align-middle">{{ $subjectOffering->section }}</td>
             <td class="align-middle">{{ $subjectOffering->school_year }}</td>
+            <td class="align-middle">{{ $subjectOffering->semester }}</td>
             <td class="align-middle">
                 <form action="{{ route('subject-offerings.destroy', $subjectOffering->id) }}" method="POST">
        
