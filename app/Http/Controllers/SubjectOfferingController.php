@@ -138,12 +138,14 @@ class SubjectOfferingController extends Controller
 
     public function search(Request $request)
     {
+        // TODO: check if common variable can be put in a function
         $subjectOfferings = $this->subjectOfferingService->getAll($request);
         $courses = $this->courseService->getCourses();
         $subjects = $this->subjectService->getSubjects();
         $sections = $this->getSections();
         $schoolYears = $this->createSchoolYears();
         $yearLevels = $this->getYearLevels();
+        $semesters = $this->getSemesters();
 
         return view('subject_offering.index', compact(
                 'subjectOfferings', 
@@ -151,6 +153,7 @@ class SubjectOfferingController extends Controller
                 'subjects', 
                 'courses',
                 'schoolYears',
+                'semesters',
                 'yearLevels'
             ))
             ->with('i', (request()->input('page', 1) - 1) * 5);
