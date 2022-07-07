@@ -16,6 +16,7 @@ class SubjectOfferingService{
         $courseId = $filter->course_id ?? null;
         $ubjectId = $filter->subject_id ?? null;
         $schoolYear = $filter->school_year ?? null;
+        $semester = $filter->semester ?? null;
         $yearLevel = $filter->year_level ?? null;
 
         $subjectOfferings = SubjectOffering::select(
@@ -37,6 +38,9 @@ class SubjectOfferingService{
             })
             ->when($schoolYear, function($query, $schoolYear) {
                 $query->where('subject_offerings.school_year', $schoolYear);
+            })
+            ->when($semester, function($query, $semester) {
+                $query->where('subject_offerings.semester', $semester);
             })
             ->when($ubjectId, function($query, $ubjectId) {
                 $query->where('subject_offerings.subject_id', $ubjectId);
