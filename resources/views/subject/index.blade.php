@@ -17,12 +17,6 @@
         </div>
     </div>
    
-    @if ($message = Session::get('success'))
-        <div class="alert alert-success">
-            <p>{{ $message }}</p>
-        </div>
-    @endif
-   
     <table class="table table-bordered">
         <tr>
             <th>ID</th>
@@ -55,4 +49,17 @@
   
     {!! $subjects->links() !!}
       
+@endsection
+
+@section('script')
+
+<script>
+    @if(Session::has('success'))
+        toastr.options ={
+            "closeButton" : true,
+        }
+        toastr.success("{{ Session::get('success') }}");
+    @endif
+</script>
+
 @endsection
