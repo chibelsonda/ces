@@ -55,10 +55,7 @@
 
 <script>
     @if(Session::has('success'))
-        toastr.options ={
-            "closeButton" : true,
-        }
-        toastr.success("{{ Session::get('success') }}");
+        showToast(TOAST_SUCCESS +'aadsf', "{{ Session::get('success') }}");
     @endif
 </script>
 
