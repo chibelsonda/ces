@@ -43,7 +43,8 @@
                     <div class="col-12 col-sm-12 col-md-12">
                         <div class="form-group mt-2">
                             <label>Description:</label>
-                            <textarea class="form-control" style="height:150px" name="description" placeholder="Description" required></textarea>
+                            <textarea class="form-control" style="height:150px" 
+                                name="description" placeholder="Description" required></textarea>
                         </div>
                     </div>
 
