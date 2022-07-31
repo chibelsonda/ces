@@ -12,7 +12,7 @@
         <title>@yield('title')</title>
 
         <link href="{{ asset('admin/css/styles.css') }}"  rel="stylesheet" />
-
+        <link href="{{ asset('admin/css/toastr.min.css') }}"  rel="stylesheet" />
         <script src="https://use.fontawesome.com/releases/v6.1.0/js/all.js" crossorigin="anonymous"></script>
 
         @stack('styles')
@@ -38,7 +38,9 @@
         </div>
 
         <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" crossorigin="anonymous"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
         <script src="{{ asset('admin/js/scripts.js') }}"></script>
+        <script src="{{ asset('admin/js/toastr.min.js') }}"></script>
         @yield('script')
     </body>
 </html>
